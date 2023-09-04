@@ -1,3 +1,6 @@
+const URL = process.env.DETA_SPACE_APP_HOSTNAME || 'http://localhost:3000';
+import { URL } from '../../../../constants.js';
+
 /**
  * @param {string} list
  * @param {Record<string, any>[]} items
@@ -5,23 +8,23 @@
 const render = (list, items) => `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
-	<title>Svelte HN (${list})</title>
-	<link>https://hn.svelte.dev/${list}/1</link>
+	<title>Hanī | HN (${list})</title>
+	<link>${URL}/${list}/1</link>
 	<description>Links from the orange site</description>
 	<image>
-		<url>https://hn.svelte.dev/favicon.png</url>
+		<url>${URL}/favicon.png</url>
 		<title>Svelte HN (${list})</title>
-		<link>https://hn.svelte.dev/${list}/1</link>
+		<link>${URL}/${list}/1</link>
 	</image>
 	${items
 		.map(
 			(item) => `
 				<item>
 					<title>${item.title}${item.domain ? ` (${item.domain})` : ''}</title>
-					<link>https://hn.svelte.dev/item/${item.id}</link>
+					<link>${URL}/item/${item.id}</link>
 					<description><![CDATA[${
 						item.url ? `<a href="${item.url}">link</a> / ` : ''
-					}<a href="https://hn.svelte.dev/item/${item.id}">comments</a>
+					}<a href="${URL}/item/${item.id}">comments</a>
 					]]></description>
 					<pubDate>${new Date(item.time * 1000).toUTCString()}</pubDate>
 				</item>

@@ -13,13 +13,10 @@
   * }}
   */
  export let item;
-
- /** @type {number} */
- export let index;
 </script>
 
-<article class="my-4 text-quaternary">
- <h2 class="text-primary text-md font-medium">
+<article class="my-4 text-quaternary relative text-xl">
+ <h2 class="text-primary font-medium">
   <a
    href={item.domain ? item.url : `/item/${item.id}`}
    rel="noopener noreferrer"
@@ -33,11 +30,11 @@
  </h2>
 
  {#if item.type === "job"}
-  <p class="text-sm font-light">
+  <p class="text-md font-light">
    {item.time_ago}
   </p>
  {:else}
-  <p class="text-sm font-light">
+  <p class="text-base font-light">
    <span>{item.points} points</span>
    |
    <a href="/user/{item.user}" class="hover:text-primary">{item.user}</a>
@@ -50,21 +47,4 @@
    </a>
   </p>
  {/if}
-
- <span class="index font-light">{index}.</span>
 </article>
-
-<style>
- article {
-  position: relative;
-  padding: 0 0 0 4em;
- }
-
- .index {
-  position: absolute;
-  left: 2em;
-  top: 0;
-  text-align: right;
-  width: 0.75em;
- }
-</style>

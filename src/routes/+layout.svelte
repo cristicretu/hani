@@ -7,12 +7,10 @@
  $: section = $page.url.pathname.split("/")[1];
 </script>
 
-<Nav {section} />
-
 {#if $navigating}
  <PreloadingIndicator />
 {/if}
 
-<main class="relative max-w-3xl p-16 mx-auto">
+<main class="relative max-w-3xl p-4 sm:p-8 md:p-16 mx-auto">
  <slot />
 </main>
