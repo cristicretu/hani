@@ -4,7 +4,9 @@ const { createThemes } = require('tw-colors');
 const config = {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      textColor: ['visited']
+    },
   },
   plugins: [
     createThemes({
