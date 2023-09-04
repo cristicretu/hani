@@ -55,7 +55,7 @@
   {/if}
  </article>
 
- <p class="text-lg text-primary">
+ <p class="text-lg text-primary pb-4">
   {data.comments.length}{" "}{data.comments.length === 1
    ? "comment"
    : "comments"}

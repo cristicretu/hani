@@ -12,7 +12,7 @@
 </script>
 
 {#if !comment.deleted}
- <article class="comment border-t border-bg3">
+ <article class="comment border-t border-bg3 text-base">
   <details open>
    <summary>
     <div class="meta-bar py-4 cursor-pointer" role="button" tabindex="0">
@@ -28,7 +28,7 @@
     </div>
    </summary>
 
-   <div class="body pb-4 whitespace-pre-wrap">
+   <div class="body pb-4 whitespace-pre-wrap text-secondary/60">
     {@html comment.content
      .split("<p>")
      .map((p) => `<div class="paragraph">${p}</div>`)
@@ -82,7 +82,6 @@
 
  .meta {
   display: block;
-  font-size: 14px;
   color: var(--fg-light);
  }
 

@@ -16,7 +16,7 @@
 </script>
 
 <article class="my-4 text-quaternary relative text-xl">
- <h2 class="text-primary font-medium">
+ <h2 class="text-primary font-medium hover:text-brand transition">
   <a
    href={item.domain ? item.url : `/item/${item.id}`}
    rel="noopener noreferrer"
