@@ -5,8 +5,6 @@
 
  /** @type {import('./$types').PageData} */
  export let data;
-
- $: next = `/${data.list}/${data.page + 1}`;
 </script>
 
 <svelte:head>
@@ -17,11 +15,9 @@
  />
 </svelte:head>
 
-<div class="min-h-screen flex flex-col mx-auto max-w-3xl px-4 md:px-0">
- <header class="py-40 sm:py-20">
-  <h1
-   class="text-2xl sm:text-4xl font-bold text-center sm:text-left text-brand"
-  >
+<div class="min-h-screen flex flex-col mx-auto max-w-3xl md:px-0">
+ <header class="pt-20 sm:py-20">
+  <h1 class="text-2xl sm:text-4xl font-bold text-left text-brand">
    Hanī - Hacker News Reader
    <!-- {panel === Panel.bookmarks
          ? "Bookmarks"
@@ -29,7 +25,7 @@
          ? "Settings"
          : "Hacker News"} -->
   </h1>
-  <div class="mt-4 -ml-3 flex space-x-4 text-tertiary">
+  <div class="mt-4 -ml-3 flex space-x-4 text-tertiary text-sm">
    <a
     class="flex space-x-2 hover:text-primary px-3 py-2 hover:bg-bg2 transition rounded-md w-fit cursor-pointer"
     href="/top/1"
@@ -40,7 +36,7 @@
      viewBox="0 0 24 24"
      stroke-width="1.5"
      stroke="currentColor"
-     class="w-6 h-6"
+     class="w-5 h-5"
     >
      <path
       stroke-linecap="round"
@@ -60,7 +56,7 @@
      viewBox="0 0 24 24"
      stroke-width="1.5"
      stroke="currentColor"
-     class="w-6 h-6"
+     class="w-5 h-5"
     >
      <path
       stroke-linecap="round"
@@ -98,10 +94,3 @@
      <Posts data={data} />
    )} -->
 </div>
-
-{#if next}
- <a
-  class="text-tertiary mx-12 mt-4 px-4 py-4 hover:bg-bg2 transition rounded-md"
-  href={next}>More...</a
- >
-{/if}

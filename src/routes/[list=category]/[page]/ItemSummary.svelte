@@ -23,9 +23,6 @@
    target="_blank"
   >
    {item.title}
-   {#if item.domain}<small class="text-brand/70 hover:text-brand/100 font-light"
-     >({item.domain})</small
-    >{/if}
   </a>
  </h2>
 
@@ -36,14 +33,24 @@
  {:else}
   <p class="text-base font-light">
    <span>{item.points} points</span>
-   |
+   •
    <a href="/user/{item.user}" class="hover:text-primary">{item.user}</a>
-   |
+   •
    <span>{item.time_ago}</span>
-   |
-   <a href="/item/{item.id}" class="hover:text-primary">
+   •
+   <a
+    href="/item/{item.id}"
+    class="hover:text-primary underline underline-offset-[3px] hover:no-underline hover:bg-[url('https://snippets.alexandru.so/squiggle.svg')] transition"
+   >
     {item.comments_count}
     {item.comments_count === 1 ? "comment" : "comments"}
+   </a>
+   •
+   <a
+    href={item.domain ? item.url : `/item/${item.id}`}
+    class="hover:text-brand transition"
+   >
+    {item.domain}
    </a>
   </p>
  {/if}

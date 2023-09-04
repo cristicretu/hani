@@ -8,6 +8,7 @@
  const PAGE_SIZE = 30;
 
  $: start = 1 + (data.page - 1) * PAGE_SIZE;
+ $: next = `/${data.list}/${data.page + 1}`;
 </script>
 
 <svelte:head>
@@ -23,3 +24,10 @@
   <ItemSummary {item} index={start + i} />
  {/if}
 {/each}
+
+{#if next}
+ <a
+  class="text-tertiary -mx-4 mt-4 w-fit px-4 py-4 hover:bg-bg2 transition rounded-md"
+  href={next}>More...</a
+ >
+{/if}
