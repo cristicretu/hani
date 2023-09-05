@@ -28,25 +28,21 @@
  };
 </script>
 
-<button
- class="p-2 rounded-md bg-white text-gray-800 hover:bg-gray-600"
- on:click={() => setTheme("light")}
->
- Light
-</button>
+<div class="flex space-x-4">
+ <button
+  class="p-2 rounded-full h-6 w-6 bg-white"
+  on:click={() => setTheme("light")}
+ />
 
-<!-- Orange Theme Button -->
-<button
- class="p-2 rounded-md bg-orange-500 text-white hover:bg-orange-600"
- on:click={() => setTheme("hani")}
->
- Orange
-</button>
+ <!-- Orange Theme Button -->
+ <button
+  class="p-2 rounded-full bg-orange-500 h-6 w-6"
+  on:click={() => setTheme("hani")}
+ />
 
-<!-- Dark Theme Button -->
-<button
- class="p-2 rounded-md bg-gray-800 text-white hover:bg-gray-900"
- on:click={() => setTheme("dark")}
->
- Dark
-</button>
+ <!-- Dark Theme Button -->
+ <button
+  class="p-2 rounded-full bg-gray-950 h-6 w-6"
+  on:click={() => setTheme("dark")}
+ />
+</div>

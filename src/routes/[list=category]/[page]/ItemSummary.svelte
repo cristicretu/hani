@@ -16,11 +16,12 @@
 </script>
 
 <article class="my-4 text-quaternary relative text-xl">
- <h2 class="text-primary font-medium hover:text-brand transition">
+ <h2>
   <a
    href={item.domain ? item.url : `/item/${item.id}`}
    rel="noopener noreferrer"
    target="_blank"
+   class="text-primary font-medium hover:text-brand transition visited:text-tertiary"
   >
    {item.title}
   </a>

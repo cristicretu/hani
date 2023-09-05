@@ -2,6 +2,7 @@
  import Nav from "../../../lib/Nav.svelte";
  import ThemeToggle from "../../../lib/ThemeToggle.svelte";
  import ItemSummary from "./ItemSummary.svelte";
+ import Settings from "../../../lib/Settings.svelte";
 
  /** @type {import('./$types').PageData} */
  export let data;
@@ -66,7 +67,7 @@
     </svg>
     <span>Bookmarks</span>
    </a>
-   <ThemeToggle />
+   <Settings />
    <!-- <a href="/new/1">new</a>
    <a href="/show/1">show</a>
    <a href="/ask/1">ask</a>
