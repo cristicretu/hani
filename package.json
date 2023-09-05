@@ -19,5 +19,8 @@
     "tw-colors": "^2.2.0",
     "vite": "^4.4.2"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "deta": "^2.0.0"
+  }
 }

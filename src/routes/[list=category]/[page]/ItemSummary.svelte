@@ -1,4 +1,5 @@
 <script>
+ import { linkFade, newTab } from "../../../lib/utils";
  /**
   * @type {{
   *   domain?: string;
@@ -13,17 +14,32 @@
   * }}
   */
  export let item;
+
+ $: props = $newTab
+  ? {
+     target: "_blank",
+     rel: "noopener noreferrer",
+    }
+  : {};
 </script>
 
 <article class="my-4 text-quaternary relative text-xl">
  <h2>
   <a
    href={item.domain ? item.url : `/item/${item.id}`}
-   rel="noopener noreferrer"
-   target="_blank"
-   class="text-primary font-medium hover:text-brand transition visited:text-tertiary"
+   {...props}
+   class={`text-primary font-medium hover:text-brand transition ${
+    $linkFade && "visited:text-tertiary"
+   }`}
   >
    {item.title}
+  </a>
+  •
+  <a
+   href="/item/{item.id}"
+   class="hover:text-primary underline underline-offset-[3px] text-base whitespace-nowrap hover:no-underline hover:bg-[url('https://snippets.alexandru.so/squiggle.svg')] transition"
+  >
+   Discuss ({item.comments_count})
   </a>
  </h2>
 
@@ -40,16 +56,9 @@
    <span>{item.time_ago}</span>
    •
    <a
-    href="/item/{item.id}"
-    class="hover:text-primary underline underline-offset-[3px] hover:no-underline hover:bg-[url('https://snippets.alexandru.so/squiggle.svg')] transition"
-   >
-    {item.comments_count}
-    {item.comments_count === 1 ? "comment" : "comments"}
-   </a>
-   •
-   <a
     href={item.domain ? item.url : `/item/${item.id}`}
     class="hover:text-brand transition"
+    {...props}
    >
     {item.domain}
    </a>

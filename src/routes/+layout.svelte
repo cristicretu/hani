@@ -3,14 +3,48 @@
  import Nav from "$lib/Nav.svelte";
  import PreloadingIndicator from "$lib/PreloadingIndicator.svelte";
  import "../app.css";
+ import Settings from "../lib/Settings.svelte";
+ import { onMount } from "svelte";
+ import { linkFade, newTab, font } from "../lib/utils";
+ import { Base } from "deta";
 
  $: section = $page.url.pathname.split("/")[1];
+
+ onMount(async () => {
+  const db = Base("settings");
+
+  const isLinkFade = await db.get("linkFade");
+  const isNewTab = await db.get("newTab");
+  const isFont = await db.get("font");
+
+  if (!isLinkFade) {
+   db.put({ field: $linkFade }, "linkFade");
+  }
+
+  if (!isNewTab) {
+   db.put({ field: $newTab }, "newTab");
+  }
+
+  if (!isFont) {
+   db.put({ field: $font }, "font");
+  }
+
+  $linkFade = isLinkFade.linkFade;
+  $newTab = isNewTab.newTab;
+  $font = isFont.font;
+ });
 </script>
+
+<Settings />
 
 {#if $navigating}
  <PreloadingIndicator />
 {/if}
 
-<main class="relative max-w-3xl p-4 sm:p-8 md:p-16 mx-auto">
+<main
+ class="relative max-w-3xl p-4 sm:p-8 md:p-16 mx-auto"
+ class:font-mono={$font === "mono"}
+ class:font-sans={$font === "sans"}
+>
  <slot />
 </main>

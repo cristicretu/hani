@@ -3,6 +3,8 @@
  import ThemeToggle from "./ThemeToggle.svelte";
  import { onMount, onDestroy } from "svelte";
  import { browser } from "$app/environment";
+ import Toggle from "./Toggle.svelte";
+ import FontSwitcher from "./FontSwitcher.svelte";
 
  let showPopup = false;
  let popupPosition = {};
@@ -38,10 +40,24 @@
 </script>
 
 <button
- class="bg-brand text-primary px-4 py-2 rounded popup-button"
+ class="bg-brand text-primary px-2 py-2 rounded popup-button fixed top-4 left-4"
  on:click={togglePopup}
+ on:touchstart={togglePopup}
 >
- Open Popup
+ <svg
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke-width="1.5"
+  stroke="currentColor"
+  class="w-6 h-6"
+ >
+  <path
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"
+  />
+ </svg>
 </button>
 
 {#if showPopup}
@@ -52,15 +68,18 @@
   ref="popup"
  >
   <button
-   class="bg-bg2 p-4 rounded-lg shadow-lg"
+   class="bg-bg2 px-6 py-4 rounded-lg shadow-lg flex flex-col space-y-3"
    on:click={closePopup}
    on:keydown={closePopup}
    aria-labelledby="Close popup"
   >
-   <div class="flex flex-col !items-start space-y-1">
-    <span>Theme</span>
-    <ThemeToggle />
-   </div>
+   <FontSwitcher />
+
+   <ThemeToggle />
+
+   <Toggle />
+
+   <Toggle field="newTab" />
   </button>
  </div>
 {/if}
