@@ -21,7 +21,7 @@
 
 {#each data.items as item, i}
  {#if item}
-  <ItemSummary {item} index={start + i} />
+  <ItemSummary {item} />
  {/if}
 {/each}
 

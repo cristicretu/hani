@@ -1,10 +1,9 @@
-<!-- Popup.svelte -->
 <script>
  import ThemeToggle from "./ThemeToggle.svelte";
  import { onMount, onDestroy } from "svelte";
- import { browser } from "$app/environment";
  import Toggle from "./Toggle.svelte";
  import FontSwitcher from "./FontSwitcher.svelte";
+ import { browser } from "$app/environment";
 
  let showPopup = false;
  let popupPosition = {};
@@ -34,8 +33,22 @@
   }
  }
 
+ function handleResize() {
+  if (showPopup) {
+   calculatePopupPosition();
+  }
+ }
+
  onMount(() => {
   document.addEventListener("click", closePopup);
+  window.addEventListener("resize", handleResize);
+ });
+
+ onDestroy(() => {
+  if (browser) {
+   document.removeEventListener("click", closePopup);
+   window.removeEventListener("resize", handleResize);
+  }
  });
 </script>
 

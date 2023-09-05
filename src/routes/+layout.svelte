@@ -10,28 +10,32 @@
 
  $: section = $page.url.pathname.split("/")[1];
 
- onMount(async () => {
-  const db = Base("settings");
+ onMount(() => {
+  async function getSetting() {
+   const db = Base("settings");
 
-  const isLinkFade = await db.get("linkFade");
-  const isNewTab = await db.get("newTab");
-  const isFont = await db.get("font");
+   const isLinkFade = await db.get("linkFade");
+   const isNewTab = await db.get("newTab");
+   const isFont = await db.get("font");
 
-  if (!isLinkFade) {
-   db.put({ field: $linkFade }, "linkFade");
+   if (!isLinkFade) {
+    db.put({ field: $linkFade }, "linkFade");
+   }
+
+   if (!isNewTab) {
+    db.put({ field: $newTab }, "newTab");
+   }
+
+   if (!isFont) {
+    db.put({ field: $font }, "font");
+   }
+
+   $linkFade = isLinkFade.field;
+   $newTab = isNewTab.field;
+   $font = isFont.field;
   }
 
-  if (!isNewTab) {
-   db.put({ field: $newTab }, "newTab");
-  }
-
-  if (!isFont) {
-   db.put({ field: $font }, "font");
-  }
-
-  $linkFade = isLinkFade.linkFade;
-  $newTab = isNewTab.newTab;
-  $font = isFont.font;
+  getSetting();
  });
 </script>
 

@@ -3,9 +3,25 @@
  import ThemeToggle from "../../../lib/ThemeToggle.svelte";
  import ItemSummary from "./ItemSummary.svelte";
  import Settings from "../../../lib/Settings.svelte";
+ import { onMount } from "svelte";
+ import { Base } from "deta";
 
  /** @type {import('./$types').PageData} */
  export let data;
+
+ let activePanel = "posts";
+ let bookmarks = [];
+
+ async function getBookmarks() {
+  const db = Base("bookmarks");
+
+  const bookmarkedItems = await db.fetch();
+  bookmarks = bookmarkedItems.items;
+ }
+
+ onMount(() => {
+  getBookmarks();
+ });
 </script>
 
 <svelte:head>
@@ -30,6 +46,9 @@
    <a
     class="flex space-x-2 hover:text-primary px-3 py-2 hover:bg-bg2 transition rounded-md w-fit cursor-pointer"
     href="/top/1"
+    on:click={() => {
+     activePanel = "posts";
+    }}
    >
     <svg
      xmlns="http://www.w3.org/2000/svg"
@@ -47,9 +66,12 @@
     </svg>
     <span>Posts</span>
    </a>
-   <a
+   <button
     class="flex space-x-2 hover:text-primary px-3 py-2 hover:bg-bg2 transition rounded-md w-fit cursor-pointer"
-    href="/top/1"
+    on:click={() => {
+     activePanel = "bookmarks";
+     getBookmarks();
+    }}
    >
     <svg
      xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +88,7 @@
      />
     </svg>
     <span>Bookmarks</span>
-   </a>
+   </button>
    <!-- <a href="/new/1">new</a>
    <a href="/show/1">show</a>
    <a href="/ask/1">ask</a>
@@ -86,7 +108,16 @@
      /> -->
  </header>
  <!-- <ThemeToggle /> -->
- <slot />
+ {#if activePanel === "posts"}
+  <slot />
+ {:else}
+  {#each bookmarks as item, i}
+   {#if item}
+    <ItemSummary {item} />
+   {/if}
+  {/each}
+ {/if}
+
  <!-- {panel === "bookmarks" ? (
      <Bookmarks />
    ) : panel === "settings" ? (
