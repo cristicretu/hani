@@ -66,6 +66,7 @@
     </svg>
     <span>Bookmarks</span>
    </a>
+   <ThemeToggle />
    <!-- <a href="/new/1">new</a>
    <a href="/show/1">show</a>
    <a href="/ask/1">ask</a>

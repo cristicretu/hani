@@ -23,6 +23,7 @@
        target="_blank"
        class="!text-primary/80 hover:!text-primary transition">{comment.user}</a
       >
+
       {comment.time_ago}
      </span>
     </div>
