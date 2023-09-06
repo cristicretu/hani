@@ -67,7 +67,7 @@
  });
 </script>
 
-<article class="my-4 text-quaternary relative text-xl group px-4 py-4 -mx-4">
+<article class=" text-quaternary relative text-xl group px-5 py-3 -mx-5">
  <h2 class="max-w-[300px] sm:max-w-lg md:max-w-2xl">
   <a
    href={item.domain ? item.url : `/item/${item.id}`}

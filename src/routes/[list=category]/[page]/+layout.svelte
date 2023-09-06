@@ -5,6 +5,7 @@
  import Settings from "../../../lib/Settings.svelte";
  import { onMount } from "svelte";
  import { Base } from "deta";
+ import ItemList from "../../../lib/ItemList.svelte";
 
  /** @type {import('./$types').PageData} */
  export let data;
@@ -92,35 +93,10 @@
    <a href="/ask/1">ask</a>
    <a href="/jobs/1">jobs</a> -->
   </div>
-  <!-- <Navigation
-       activePanel={panel}
-       onClickPosts={() => {
-         setPanel(Panel.posts)
-       }}
-       onClickSaved={() => {
-         setPanel(Panel.bookmarks)
-       }}
-       onClickSettings={() => {
-         setPanel(Panel.settings)
-       }}
-     /> -->
  </header>
- <!-- <ThemeToggle /> -->
  {#if activePanel === "posts"}
   <slot />
  {:else}
-  {#each bookmarks as item, i}
-   {#if item}
-    <ItemSummary {item} />
-   {/if}
-  {/each}
+  <ItemList items={bookmarks} />
  {/if}
-
- <!-- {panel === "bookmarks" ? (
-     <Bookmarks />
-   ) : panel === "settings" ? (
-     <Settings />
-   ) : (
-     <Posts data={data} />
-   )} -->
 </div>
