@@ -46,7 +46,7 @@
 {/if}
 
 <main
- class="relative max-w-3xl p-4 sm:p-8 md:p-16 mx-auto"
+ class="relative max-w-5xl p-4 mx-auto"
  class:font-mono={$font === "mono"}
  class:font-sans={$font === "sans"}
 >

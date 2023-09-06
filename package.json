@@ -21,6 +21,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@rgossiaux/svelte-headlessui": "^2.0.0",
     "deta": "^2.0.0"
   }
 }
