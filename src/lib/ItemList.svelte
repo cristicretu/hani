@@ -28,7 +28,7 @@
 
   pressTimer = setTimeout(() => {
    handleLongPress(item, i);
-  }, 400);
+  }, 300);
  }
 
  function handleLongPress(item, i) {
@@ -39,7 +39,7 @@
 
   pressTimer = setTimeout(() => {
    showIframe(item);
-  }, 650);
+  }, 350);
  }
 
  function handlePressRelease() {
@@ -79,13 +79,17 @@
 {/each}
 
 {#if iframeSrc}
+ <!-- svelte-ignore a11y-click-events-have-key-events -->
+ <!-- svelte-ignore a11y-no-static-element-interactions -->
  <div
   class="fixed inset-0 bg-black bg-opacity-50 z-50 {isIframeVisible
    ? 'block'
    : 'hidden'}"
+  on:click={hideIframe}
  >
   <div
    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+   on:click={(e) => e.stopPropagation()}
   >
    <iframe
     src={iframeSrc}
@@ -122,7 +126,7 @@
   left: 0;
   height: 100%;
   width: 0;
-  transition: width 0.65s;
+  transition: width 0.35s;
   z-index: -1; /* Ensure it's behind content */
  }
 

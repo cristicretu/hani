@@ -1,10 +1,7 @@
 <script>
- import Nav from "../../../lib/Nav.svelte";
- import ThemeToggle from "../../../lib/ThemeToggle.svelte";
- import ItemSummary from "./ItemSummary.svelte";
- import Settings from "../../../lib/Settings.svelte";
- import { onMount } from "svelte";
+ import { browser } from "$app/environment";
  import { Base } from "deta";
+ import { onMount } from "svelte";
  import ItemList from "../../../lib/ItemList.svelte";
 
  /** @type {import('./$types').PageData} */
@@ -20,8 +17,21 @@
   bookmarks = bookmarkedItems.items;
  }
 
+ let dropdownVisible = false;
+
+ function toggleDropdown() {
+  dropdownVisible = !dropdownVisible;
+ }
+
+ function handleClickOutside(event) {
+  if (!event.target.closest(".dropdown-container")) {
+   dropdownVisible = false;
+  }
+ }
+
  onMount(() => {
   getBookmarks();
+  document.addEventListener("click", handleClickOutside);
  });
 </script>
 
@@ -38,7 +48,7 @@
   <h1 class="text-xl sm:text-3xl font-bold text-left text-brand">
    Hanī - Hacker News Reader
   </h1>
-  <div class="mt-4 -ml-3 flex space-x-4 text-tertiary text-sm">
+  <div class="mt-4 -ml-3 flex items-center space-x-4 text-tertiary text-sm">
    <a
     class="flex space-x-2 hover:text-primary px-3 items-center py-2 hover:bg-bg3 transition rounded-md w-fit cursor-pointer"
     href="/top/1"
@@ -62,9 +72,65 @@
      />
     </svg>
     <span>Posts</span>
+    {#if dropdownVisible}
+     <div
+      class="absolute top-36 left-0 mt-2 flex flex-col bg-bg2 border border-bg3 rounded-md z-10 w-20 text-primary dropdown-container"
+     >
+      <a
+       href="/new/1"
+       class="px-4 py-2 hover:bg-bg3/50 block"
+       on:click={() => (dropdownVisible = false)}>New</a
+      >
+      <a
+       href="/show/1"
+       class="px-4 py-2 hover:bg-bg3/50 block"
+       on:click={() => (dropdownVisible = false)}>Show</a
+      >
+      <a
+       href="/ask/1"
+       class="px-4 py-2 hover:bg-bg3/50 block"
+       on:click={() => (dropdownVisible = false)}>Ask</a
+      >
+      <a
+       href="/jobs/1"
+       class="px-4 py-2 hover:bg-bg3/50 block"
+       on:click={() => (dropdownVisible = false)}>Jobs</a
+      >
+     </div>
+    {/if}
    </a>
+   <!-- svelte-ignore a11y-no-static-element-interactions -->
+   <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="w-5 h-5 cursor-pointer dropdown-container"
+    on:click={toggleDropdown}
+    on:keydown={(e) => {
+     if (e.key === "Enter") {
+      toggleDropdown();
+     }
+    }}
+   >
+    {#if dropdownVisible}
+     <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M4.5 15.75l7.5-7.5 7.5 7.5"
+     />
+    {:else}
+     <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+     />
+    {/if}
+   </svg>
+
    <button
-    class="flex space-x-2 items-center hover:text-primary px-3 py-2 hover:bg-bg3 transition rounded-md w-fit cursor-pointer"
+    class="flex space-x-2 items-center hover:text-primary px-3 py-2 hover:bg-bg3 transition rounded-md w-fit cursor-pointer select-none"
     class:bg-bg2={activePanel === "bookmarks"}
     on:click={() => {
      activePanel = "bookmarks";
@@ -88,10 +154,6 @@
 
     <span>Bookmarks</span>
    </button>
-   <!-- <a href="/new/1">new</a>
-   <a href="/show/1">show</a>
-   <a href="/ask/1">ask</a>
-   <a href="/jobs/1">jobs</a> -->
   </div>
  </header>
  {#if activePanel === "posts"}
