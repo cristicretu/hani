@@ -14,17 +14,21 @@
   iframeSrc = item.url;
   isIframeVisible = true;
   pressedItemId = null;
+  document.body.style.overflow = "hidden";
  }
 
  function hideIframe() {
   isIframeVisible = false;
   pressedItemId = null;
+  document.body.style.overflow = "auto";
  }
 
  function handleMouseDown(event, item, i) {
   if (event.target.tagName === "BUTTON" || event.target.tagName === "A") {
    return;
   }
+
+  document.body.classList.add("noselect");
 
   pressTimer = setTimeout(() => {
    handleLongPress(item, i);
@@ -45,6 +49,8 @@
  function handlePressRelease() {
   clearTimeout(pressTimer);
   pressedItemId = null;
+
+  document.body.classList.remove("noselect");
  }
 
  onMount(() => {
@@ -97,24 +103,47 @@
     frameborder="0"
     class="w-[95vw] sm:w-[90vw] md:w-[70vw] h-[80vh] rounded-xl bg-bg shadow-md px-2 py-2"
    />
-   <button
-    class="mt-4 p-2 rounded-full bg-bg3/50 text-primary hover:bg-bg2 transition"
-    on:click={hideIframe}
-    ><svg
-     xmlns="http://www.w3.org/2000/svg"
-     fill="none"
-     viewBox="0 0 24 24"
-     stroke-width="1.5"
-     stroke="currentColor"
-     class="w-6 h-6"
-    >
-     <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-     />
-    </svg>
-   </button>
+   <div class="flex space-x-4">
+    <button
+     class="mt-4 p-2 rounded-full bg-bg3/50 text-primary hover:bg-bg2 transition"
+     on:click={hideIframe}
+     ><svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-6 h-6"
+     >
+      <path
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+     </svg>
+    </button>
+    <a
+     class="mt-4 p-2 rounded-full bg-bg3/50 text-primary hover:bg-bg2 transition items-center flex"
+     on:click={hideIframe}
+     href={iframeSrc}
+     target="_blank"
+     rel="noopener noreferrer"
+     ><svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-6 h-6"
+     >
+      <path
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+      />
+     </svg>
+    </a>
+   </div>
   </div>
  </div>
 {/if}
@@ -127,7 +156,7 @@
   height: 100%;
   width: 0;
   transition: width 0.35s;
-  z-index: -1; /* Ensure it's behind content */
+  z-index: -1;
  }
 
  .animating {
